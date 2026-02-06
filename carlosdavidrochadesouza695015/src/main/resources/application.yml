@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: carlosdavid-backend
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/seplag_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # Em nível sênior, deixamos o Flyway controlar o schema
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+# Requisito do Edital: Health Checks (Actuator) para Liveness/Readiness
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always

@@ -1,0 +1,21 @@
+services:
+  # Banco de Dados PostgreSQL (Exigência de persistência)
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=seplag_db'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+
+  # MinIO - Servidor S3 (Exigência para upload de imagens/capas)
+  minio:
+    image: 'minio/minio:latest'
+    ports:
+      - '9000:9000' # Porta da API
+      - '9001:9001' # Porta do Console (Web Interface)
+    environment:
+      - 'MINIO_ROOT_USER=carlos_admin'
+      - 'MINIO_ROOT_PASSWORD=carlos_senha'
+    command: server /data --console-address ":9001"
